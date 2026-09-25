@@ -1,0 +1,204 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{array}
+
+
+
+\titleformat{\section}
+  {\color{primaryblue}\Large\bfseries}
+  {\thesection}{0.6em}{}
+\titleformat{\subsection}
+  {\color{darkgray}\large\bfseries}
+  {\thesubsection}{0.5em}{}
+
+\setlist[itemize]{leftmargin=1.5em,itemsep=2pt,topsep=4pt}
+
+\title{\vspace{-1cm}\textbf{Projet Traveling}\\[0.3em]
+  \large Rapport des fonctionnalités réalisées}
+\author{ali .... \and BOou ...}
+
+\date{March 2026}
+
+
+\begin{document}
+
+\maketitle
+
+
+
+\vspace{0.5em}
+\noindent
+\textbf{Dépôt GitLab :} \url{https://gitlab.etu.umontpellier.fr/e20190009868/travelsharepath}
+
+\vspace{1em}
+
+% ============================================================
+
+\section{Travel Share}
+\section{TravelPath}
+
+\subsection*{Stack technique}
+
+\begin{itemize}
+  \item \textbf{Frontend} : Android natif en Java
+  \item \textbf{Backend} : Node.js / Express / MongoDB
+  \item \textbf{Architecture} : MVVM (ViewModel + LiveData), Retrofit2, Navigation Component
+\end{itemize}
+
+\subsection{Authentification}
+
+\begin{itemize}
+  \item Inscription avec nom complet, email et mot de passe .
+  \item Connexion avec un token JWT persisté dans les SharedPreferences.
+  \item Déconnexion avec nettoyage complet de la session.
+  \item L'écran d'accueil adapte son interface selon l'état de connexion.
+\end{itemize}
+
+\subsection{Création d'un parcours}
+
+Le formulaire de création est organisé en deux niveaux.
+
+\textbf{Niveau parcours :}
+\begin{itemize}
+  \item Titre, description, ville.
+  \item Météo : Ensoleillé, Nuageux, Pluvieux, Tout temps.
+  \item Niveau d'effort : Facile, Moyen (Actif), Difficile.
+\end{itemize}
+
+\textbf{Niveau étape (ajout multiple) :}
+\begin{itemize}
+  \item Nom du lieu, géocodé automatiquement via Nominatim/OSM.
+  \item Type : Culture, Découverte, Restauration, Loisirs.
+  \item Durée (minutes), budget (€), description.
+  \item Photos multiples ajoutées depuis la galerie.
+  \item Réordonnancement par glisser-déposer.
+  \item Édition inline de chaque étape.
+  \item Compteurs en temps réel (durée totale, budget total, nombre d'étapes).
+\end{itemize}
+
+Un nouveau parcours est créé en statut \textit{Brouillon}.
+
+\subsection{Recherche de parcours}
+
+\begin{itemize}
+  \item Formulaire de filtres : ville, budget (slider), durée (slider), niveau d'effort,
+    types d'activités (multi-sélection).
+  \item Seuls les parcours \textit{publiés} apparaissent dans les résultats.
+  \item Filtrage côté serveur (ville, budget max, durée max, effort,types d'activités, metéo) 
+\end{itemize}
+
+\subsection{Interactions sociales}
+
+\textbf{Aimer un parcours} :
+\begin{itemize}
+  \item Bouton cœur avec compteur visible sur la fiche détail et dans les listes.
+  \item Toggle like/unlike confirmé par le serveur (pas d'optimistic update).
+  \item Le compteur se met à jour après confirmation serveur.
+\end{itemize}
+
+\textbf{Mettre en favori} :
+\begin{itemize}
+  \item Icône étoile sur la fiche détail.
+  \item Liste « Mes Favoris  » dédiée avec les mêmes actions disponibles
+    (like, dé-favori, régénérer).
+  \item État favori synchronisé via \texttt{GET /auth/me}.
+\end{itemize}
+
+\subsection{Publication d'un parcours}
+
+\begin{itemize}
+  \item Bouton « Publier  » visible uniquement sur les parcours en statut Brouillon.
+  \item Passage à statut \textit{Publié} côté serveur.
+  \item La liste « Mes parcours  » se rafraîchit automatiquement après publication.
+\end{itemize}
+
+\subsection{Détail d'un parcours --- vue Itinéraire}
+
+\textbf{En-tête :}
+\begin{itemize}
+  \item Titre, budget total, durée totale, distance estimée, effort, météo, date.
+  \item Jusqu'à 4 photos d'aperçu (1\textsuperscript{re} photo de chaque étape).
+\end{itemize}
+
+\textbf{Par étape :}
+\begin{itemize}
+  \item Numéro et nom du lieu.
+  \item Badge de type coloré : Culture (indigo), Restauration (orange),
+    Loisirs (vert), Découverte (bleu).
+  \item Description, durée, budget.
+  \item Niveau d'effort coloré (vert / orange / rouge).
+  \item Galerie photos swipeable horizontalement.
+  \item Temps de marche vers l'étape suivante (si renseigné).
+\end{itemize}
+
+\subsection{Détail d'un parcours --- vue Carte}
+
+\begin{itemize}
+  \item Carte Leaflet.js intégrée dans une WebView, avec tuiles CartoDB.
+  \item Marqueurs numérotés (cercles rouges) pour chaque étape.
+  \item Géocodage à la volée des étapes sans coordonnées GPS.
+  \item Tracé d'abord en pointillés bleus, puis remplacé par l'itinéraire routier
+    réel calculé via OSRM.
+\end{itemize}
+
+\subsection{Autres fonctionnalités}
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}lX@{}}
+\toprule
+Mes Parcours & Liste avec actions : voir, éditer, publier, supprimer (avec confirmation). \\
+\midrule
+Édition / Régénération & Propriétaire $\rightarrow$ mise à jour ; autre utilisateur
+  $\rightarrow$ fork (copie). \\
+\midrule
+Export PDF & PDF multi-pages stylé : couverture, statistiques, description, une carte
+  par étape. \\
+\midrule
+Upload photos & Multipart vers le backend, stocké dans \texttt{/backend/uploads/}. \\
+\midrule
+Profil & Nom, email, statistiques (parcours créés / publiés), lien vers création. \\
+\bottomrule
+\end{tabularx}
+
+\vspace{1em}
+
+
+
+
+% ============================================================
+\section{Passerelle Traveling}
+
+\textit{À discuter et à compléter en binôme.}
+
+L'objectif de la passerelle est de faire communiquer les deux applications afin
+qu'elles forment un système cohérent. L'architecture envisagée s'appuie sur les
+mécanismes de communication inter-applications d'Android :
+
+\begin{itemize}
+  \item \textbf{Intents} : navigation entre écrans des deux applications.
+  \item \textbf{Content Providers} : exposition de données structurées
+    (photos d'un lieu, étapes d'un parcours).
+  \item \textbf{Services AIDL} : appels de méthodes distantes pour les calculs
+    (par exemple, génération d'un parcours à partir des photos populaires d'un lieu).
+\end{itemize}
+
+\subsection*{Scénarios envisagés}
+
+\begin{itemize}
+  \item Depuis une photo dans TravelShare $\rightarrow$ générer un parcours TravelPath
+    incluant ce lieu.
+  \item Depuis une étape d'un parcours TravelPath $\rightarrow$ consulter les photos
+    associées au lieu sur TravelShare.
+\end{itemize}
+
+\end{document}

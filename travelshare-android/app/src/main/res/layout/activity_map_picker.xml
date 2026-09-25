@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:elevation="8dp">
+
+        <TextView
+            android:id="@+id/tv_selected_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cliquez sur la carte pour choisir un lieu"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btn_confirm_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirmer ce lieu"
+            android:backgroundTint="#7C3AED"
+            android:textColor="@android:color/white"
+            android:enabled="false" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_spinner"
+        android:backgroundTint="#AAFFFFFF"
+        android:src="@drawable/ic_arrow_back"
+        app:tint="#333333" />
+
+</RelativeLayout>

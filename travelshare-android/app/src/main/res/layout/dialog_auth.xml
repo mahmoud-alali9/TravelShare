@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- ── Logo avion ─────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_logo"
+                android:background="@drawable/bg_logo"
+                android:padding="12dp"
+                android:contentDescription="Logo TravelShare" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Bienvenue sur TravelShare"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A2E"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Partagez vos plus beaux moments de voyage"
+                android:textSize="13sp"
+                android:textColor="#9E9E9E"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <!-- ── Onglets Connexion / Inscription ───────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_tab_container"
+            android:padding="3dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/tab_login"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Connexion"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_tab_selected"/>
+
+            <TextView
+                android:id="@+id/tab_register"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Inscription"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#9E9E9E"
+                android:background="@drawable/bg_tab_normal"/>
+
+        </LinearLayout>
+
+        <!-- ══════════════════════════════════════════════ -->
+        <!-- FORMULAIRE CONNEXION                           -->
+        <!-- ══════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/form_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:hint="Email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_login_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Mot de passe"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_login_submit"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Se connecter"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#1A1A2E"
+                app:cornerRadius="8dp"/>
+
+        </LinearLayout>
+
+        <!-- ══════════════════════════════════════════════ -->
+        <!-- FORMULAIRE INSCRIPTION                         -->
+        <!-- ══════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/form_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Nom complet">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_reg_fullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Nom d'utilisateur">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_reg_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_reg_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Mot de passe"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_reg_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_register_submit"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="S'inscrire"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#1A1A2E"
+                app:cornerRadius="8dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,1372 @@
+\documentclass[12pt, a4paper, openany]{report}
+
+% ── Encodage & langue ────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+
+% ── Mise en page ─────────────────────────────────────────────────────────────
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ── Polices & couleurs ───────────────────────────────────────────────────────
+\usepackage{lmodern}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{primary}{RGB}{124, 58, 237}
+\definecolor{secondary}{RGB}{91, 33, 182}
+\definecolor{lightgray}{RGB}{245, 245, 245}
+\definecolor{medgray}{RGB}{210, 210, 210}
+\definecolor{darkgray}{RGB}{70, 70, 70}
+\definecolor{success}{RGB}{34, 197, 94}
+\definecolor{warning}{RGB}{251, 146, 60}
+\definecolor{danger}{RGB}{239, 68, 68}
+
+% ── Graphiques & figures ─────────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, shadows, calc}
+
+% ── Tableaux ─────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+
+% ── Listes & énumérations ────────────────────────────────────────────────────
+\usepackage{enumitem}
+\usepackage{pifont}
+\newcommand{\cmark}{\textcolor{success}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{danger}{\ding{55}}}
+\newcommand{\pmark}{\textcolor{warning}{\ding{119}}}
+
+% ── Code source ──────────────────────────────────────────────────────────────
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{lightgray},
+  frame=single,
+  rulecolor=\color{medgray},
+  breaklines=true,
+  showstringspaces=false,
+  keywordstyle=\color{primary}\bfseries,
+  commentstyle=\color{darkgray}\itshape,
+  stringstyle=\color{secondary},
+  numbers=left,
+  numberstyle=\tiny\color{darkgray},
+  tabsize=4,
+  xleftmargin=1.5em,
+  framexleftmargin=1.5em
+}
+
+% ── Liens & PDF ──────────────────────────────────────────────────────────────
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=primary,
+  urlcolor=secondary,
+  citecolor=primary,
+  pdftitle={Rapport de mi-parcours -- TravelShare},
+  pdfauthor={Mahmoud}
+}
+
+% ── Titres de chapitres et sections ──────────────────────────────────────────
+\usepackage{titlesec}
+
+% Chapitre : numéro dans une boîte colorée + titre en violet + filet
+\titleformat{\chapter}[hang]
+  {\Huge\bfseries}
+  {\colorbox{primary}{\raisebox{0pt}[16pt][4pt]{\color{white}\quad\thechapter\quad}}\enspace}
+  {0pt}
+  {\Huge\bfseries\color{primary}}
+  [\vspace{6pt}{\color{primary!30}\titlerule[1.5pt]}]
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
+% Section : numéro + filet fin
+\titleformat{\section}
+  {\Large\bfseries\color{primary}}
+  {\thesection\enspace\textbar\enspace}
+  {0pt}
+  {}
+  [\vspace{-2pt}{\color{primary!20}\titlerule[0.6pt]}]
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+
+% Sous-section
+\titleformat{\subsection}
+  {\large\bfseries\color{darkgray}}
+  {\thesubsection\enspace}
+  {0pt}
+  {}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+
+% ── En-têtes et pieds de page ────────────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{1.2pt}
+\renewcommand{\headrule}{{\color{primary}\hrule width\headwidth height\headrulewidth}}
+\fancyhead[L]{\small\textcolor{primary}{\textbf{TravelShare}}\;\textcolor{medgray}{|}\;\textcolor{darkgray}{\textit{Rapport de mi-parcours}}}
+\fancyhead[R]{\small\textcolor{darkgray}{\nouppercase{\leftmark}}}
+\fancyfoot[C]{\small\textcolor{darkgray}{\thepage}}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyfoot[C]{\small\textcolor{darkgray}{\thepage}}
+}
+
+% ── Boîtes colorées ──────────────────────────────────────────────────────────
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+\newtcolorbox{infobox}[1][]{
+  colback=primary!4!white, colframe=primary,
+  fonttitle=\bfseries, title=#1,
+  boxrule=0.6pt, arc=4pt, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+
+\newtcolorbox{warningbox}[1][]{
+  colback=orange!7!white, colframe=warning,
+  fonttitle=\bfseries, title=#1,
+  boxrule=0.6pt, arc=4pt, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+
+\newtcolorbox{successbox}[1][]{
+  colback=green!4!white, colframe=success,
+  fonttitle=\bfseries, title=#1,
+  boxrule=0.6pt, arc=4pt, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+
+% ── Commandes personnalisées ──────────────────────────────────────────────────
+\newcommand{\placeholder}[2]{%
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=#1, minimum height=3cm,
+            font=\small\itshape\color{darkgray}, align=center, rounded corners=4pt] {#2};
+    \end{tikzpicture}
+    \caption{#2}
+  \end{figure}
+}
+\newcommand{\todo}[1]{\textcolor{danger}{\textbf{[TODO: #1]}}}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+% ── PAGE DE GARDE ─────────────────────────────────────────────────────────────
+\begin{titlepage}
+\newgeometry{top=0cm, bottom=0cm, left=0cm, right=0cm}
+\thispagestyle{empty}
+
+% Bande supérieure
+\noindent
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[primary] (current page.north west)
+    rectangle ([yshift=-4.2cm]current page.north east);
+  \node[anchor=west, text=white, font=\large\bfseries]
+    at ([xshift=1.8cm, yshift=-1.1cm]current page.north west)
+    {Université de Montpellier};
+  \node[anchor=west, text=white!75!primary, font=\normalsize]
+    at ([xshift=1.8cm, yshift=-1.9cm]current page.north west)
+    {Faculté des Sciences --- Département Informatique};
+  \node[anchor=west, text=white!75!primary, font=\normalsize]
+    at ([xshift=1.8cm, yshift=-2.7cm]current page.north west)
+    {Année universitaire 2025--2026};
+\end{tikzpicture}
+
+\vspace{5cm}
+
+% Zone centrale
+\begin{center}
+
+  % Logo TravelShare
+  \begin{tikzpicture}
+    \node[fill=primary!10, draw=primary, line width=1.5pt,
+          minimum width=9cm, minimum height=1.6cm,
+          rounded corners=8pt,
+          font=\LARGE\bfseries\color{primary}]
+      {\texttt{travel}\textbf{$\bullet$}\texttt{share}};
+  \end{tikzpicture}
+
+  \vspace{1.4cm}
+  {\color{medgray}\rule{13cm}{0.6pt}}
+  \vspace{1cm}
+
+  {\fontsize{30}{36}\selectfont\bfseries\color{primary} Rapport de mi-parcours}
+
+  \vspace{0.6cm}
+  {\Large\color{darkgray} Projet Android \textemdash{} \textit{Traveling}}
+
+  \vspace{0.4cm}
+  {\large\color{secondary}
+    Partie~1~: TravelShare \textemdash{} Frontend Android \& Backend REST}
+
+  \vspace{1.2cm}
+  {\color{medgray}\rule{13cm}{0.6pt}}
+  \vspace{1cm}
+
+  \renewcommand{\arraystretch}{1.6}
+  \begin{tabular}{r@{\hspace{1cm}}l}
+    \textcolor{darkgray}{\textbf{Auteur}}         & Mahmoud \\
+    \textcolor{darkgray}{\textbf{Module}}         & Développement Android \\
+    \textcolor{darkgray}{\textbf{Dépôt Android}}  & \texttt{travelshare-android} \\
+    \textcolor{darkgray}{\textbf{Dépôt Backend}}  & \texttt{travelshare-backend} \\
+  \end{tabular}
+
+\end{center}
+
+\vfill
+
+% Bande inférieure
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[primary] (current page.south west)
+    rectangle ([yshift=2cm]current page.south east);
+  \node[text=white, font=\normalsize\bfseries]
+    at ([yshift=1.3cm]current page.south)
+    {27 avril 2026};
+  \node[text=white!75!primary, font=\small]
+    at ([yshift=0.6cm]current page.south)
+    {Application Android de partage et découverte de photos de voyages};
+\end{tikzpicture}
+
+\restoregeometry
+\end{titlepage}
+
+% ── TABLE DES MATIÈRES ────────────────────────────────────────────────────────
+\tableofcontents
+\newpage
+
+% ─────────────────────────────────────────────────────────────────────────────
+\chapter{Introduction et contexte du projet}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\section{Présentation générale}
+
+Le projet \textbf{Traveling} est une application mobile Android destinée aux voyageurs. Il est
+divisé en deux parties principales développées en binôme~:
+
+\begin{itemize}
+  \item \textbf{TravelShare (Partie~1)} : application de partage et de découverte de photos
+        de voyages -- dont la réalisation m'est confiée.
+  \item \textbf{TravelPath (Partie~2)} : générateur intelligent de parcours de visite,
+        développé par le second membre du binôme.
+  \item \textbf{Passerelle (Partie~3)} : intégration cohérente des deux modules en une
+        seule application unifiée (\textit{Traveling}).
+\end{itemize}
+
+Ce rapport couvre l'état d'avancement de la \textbf{partie TravelShare} à mi-parcours du
+développement.
+
+\section{Objectifs de TravelShare}
+
+TravelShare est une application permettant à des voyageurs de partager, découvrir et interagir
+autour de photos de voyage. Elle propose deux modes de fonctionnement~:
+
+\begin{infobox}[Mode anonyme]
+Sans compte utilisateur, le visiteur peut~: parcourir les photos publiques, effectuer des
+recherches (textuelles ou vocales), consulter les détails d'une photo (lieu, date,
+commentaires, itinéraire), aimer ou signaler un contenu.
+\end{infobox}
+
+\begin{infobox}[Mode connecté]
+Après inscription et connexion, l'utilisateur peut en plus~: publier des photos, les partager
+avec des groupes ou les rendre publiques, enrichir les photos (texte, tags, annotations IA),
+recevoir des notifications et accéder à un profil personnel.
+\end{infobox}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\chapter{Architecture technique -- Frontend Android}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\section{Choix technologiques}
+
+L'application est développée en \textbf{Java} natif pour Android, en respectant les bonnes
+pratiques recommandées par Google.
+
+\subsection{Patron de conception MVVM}
+
+L'architecture retenue est \textbf{Model-View-ViewModel (MVVM)}, soutenue par les bibliothèques
+Jetpack de Google~:
+
+\begin{itemize}
+  \item \textbf{ViewModel} : séparation logique métier / couche d'affichage, survie aux
+        rotations d'écran.
+  \item \textbf{LiveData} : observabilité réactive des données, mise à jour automatique de
+        l'interface.
+  \item \textbf{Fragment} : navigation modulaire (HomeFragment, SearchFragment, ProfileFragment).
+\end{itemize}
+
+\subsection{Bibliothèques utilisées}
+
+\begin{table}[H]
+\centering
+\caption{Principales dépendances du projet Android}
+\begin{tabularx}{\textwidth}{lXl}
+\toprule
+\rowcolor{primary!15}
+\textbf{Bibliothèque} & \textbf{Rôle} & \textbf{Version} \\
+\midrule
+Retrofit2 + OkHttp      & Client HTTP REST, communication avec le backend & 2.x \\
+Gson Converter          & Désérialisation JSON $\leftrightarrow$ Java POJO & -- \\
+Glide                   & Chargement et mise en cache d'images & 4.16.0 \\
+Google Maps SDK         & Affichage carte, marqueurs, sélection de lieu & 19.0.0 \\
+Firebase Messaging      & Notifications push (FCM) & BOM \\
+PhotoView               & Zoom sur image en plein écran & 2.3.0 \\
+Cloudinary              & Hébergement et upload d'images dans le cloud & -- \\
+Material Design         & Composants UI (BottomSheet, ChipGroup, Badge) & -- \\
+FusedLocationProvider   & Géolocalisation de l'appareil & -- \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Communication réseau}
+
+Le client HTTP est encapsulé dans la classe \texttt{RetrofitClient}, configurée avec~:
+\begin{itemize}
+  \item Une URL de base dynamique (modifiable depuis l'écran \texttt{IpConfigActivity}
+        pour faciliter les tests en réseau local).
+  \item Un intercepteur OkHttp qui injecte automatiquement le token JWT (\texttt{Bearer})
+        dans chaque requête sortante lorsque l'utilisateur est connecté.
+  \item Des délais d'expiration de 60~secondes (connexion, lecture, écriture).
+  \item Un intercepteur de journalisation pour le débogage.
+\end{itemize}
+
+\subsection{Structure des packages}
+
+\begin{lstlisting}[language=Java, caption=Organisation des packages Java]
+com.example.travelshare/
++-- api/                    # Ancien client API (remplace par network/)
++-- data/                   # Donnees mock (tests)
++-- model/                  # POJOs (Photo, Group, Comment, Notification)
+|   +-- response/           # Objets de reponse API (AuthResponse, etc.)
++-- network/                # RetrofitClient, ApiService, TokenManager, FCM
++-- ui/
+|   +-- auth/               # AuthDialog (connexion / inscription)
+|   +-- detail/             # PhotoDetailActivity, PhotoDetailViewModel
+|   +-- home/               # HomeFragment, adaptateurs, viewmodels, dialogs
+|   +-- profile/            # ProfileFragment
+|   +-- search/             # SearchFragment, SearchViewModel
++-- IpConfigActivity.java   # Configuration IP du serveur
++-- MainActivity.java       # Point d'entree, navigation bas de page
++-- MainViewModel.java      # Etat global (connexion, badge notifs)
++-- TravelShareApplication.java
+\end{lstlisting}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\chapter{Architecture et réalisation du Backend}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\section{Vue d'ensemble}
+
+Le backend de TravelShare est une \textbf{API REST} développée en \textbf{Node.js} avec le
+framework \textbf{Express.js}. Il suit une architecture \textbf{MVC} (Modèle-Contrôleur)
+et expose l'ensemble des données via des routes JSON consommées par l'application Android.
+
+\begin{infobox}[Rôle du serveur]
+Le serveur centralise~: l'authentification JWT, la persistance des données (MongoDB Atlas),
+l'upload des images (Cloudinary), l'envoi des notifications push (Firebase Cloud Messaging)
+et la gestion des groupes et des notifications in-app.
+\end{infobox}
+
+\section{Choix technologiques}
+
+\begin{table}[H]
+\centering
+\caption{Dépendances du backend Node.js}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\rowcolor{primary!15}
+\textbf{Technologie} & \textbf{Version} & \textbf{Rôle} \\
+\midrule
+Node.js / Express.js            & 4.18.x & Serveur HTTP, routage, middleware \\
+MongoDB + Mongoose              & 7.3.x  & Base de données NoSQL, ODM \\
+bcryptjs                        & 2.4.x  & Hachage des mots de passe (sel de 10 tours) \\
+jsonwebtoken (JWT)              & 9.0.x  & Génération et vérification des tokens \\
+Cloudinary SDK                  & 1.41.x & Upload et hébergement des images \\
+multer + multer-storage-cloudinary & 2.x / 4.x & Traitement multipart, stockage Cloudinary \\
+cors                            & 2.8.x  & Contrôle des requêtes cross-origin \\
+dotenv                          & 16.x   & Variables d'environnement \\
+nodemon                         & 3.x    & Rechargement automatique (développement) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Structure du projet}
+
+\begin{lstlisting}[language=bash, caption=Organisation du projet backend]
+travelshare-backend/
++-- config/
+|   +-- db.js             # Connexion MongoDB (Mongoose)
+|   +-- cloudinary.js     # Configuration Cloudinary + Multer
+|   +-- firebase.js       # Client FCM HTTP v1 (sans SDK)
++-- controllers/
+|   +-- authController.js
+|   +-- photoController.js
+|   +-- groupController.js
+|   +-- notificationController.js
++-- middleware/
+|   +-- authMiddleware.js  # protect + optionalAuth
++-- models/
+|   +-- User.js
+|   +-- Photo.js
+|   +-- Group.js
+|   +-- Notification.js
++-- routes/
+|   +-- auth.js
+|   +-- photos.js
+|   +-- groups.js
+|   +-- notifications.js
++-- server.js              # Point d'entree, montage des routes
+\end{lstlisting}
+
+\section{Modèles de données (Mongoose)}
+
+\subsection{Modèle \texttt{User}}
+
+Le schéma \texttt{User} stocke les informations de compte~:
+
+\begin{lstlisting}[language=JavaScript, caption=Schéma User.js (extrait)]
+{
+  fullName  : String (required),
+  username  : String (unique, lowercase),
+  email     : String (unique, regex validation),
+  password  : String (minlength 6, select: false),
+  avatar    : String,
+  fcmToken  : String,   // token Firebase pour les push
+  createdAt : Date
+}
+\end{lstlisting}
+
+Le mot de passe est haché automatiquement via un hook \texttt{pre('save')} avec \textbf{bcryptjs}
+(sel aléatoire, 10 tours). La méthode d'instance \texttt{matchPassword()} permet la vérification
+à la connexion. Le champ \texttt{password} est systématiquement exclu des réponses API
+(\texttt{select: false}).
+
+\subsection{Modèle \texttt{Photo}}
+
+\begin{lstlisting}[language=JavaScript, caption=Schéma Photo.js (extrait)]
+{
+  author       : ObjectId -> User (required),
+  imageUrl     : String,
+  description  : String,
+  location     : String,       // ville
+  country      : String,
+  locationType : enum [Nature, Urbain, Plage, Montagne, Musee,
+                        Restaurant, Magasin, Rue, Autre],
+  coordinates  : GeoJSON Point, // index 2dsphere
+  tags         : [String],
+  howToGetThere: String,
+  likes        : [ObjectId -> User],
+  isPublic     : Boolean (default true),
+  groups       : [ObjectId -> Group],
+  reports      : [{ user, reason, date }],
+  comments     : [{ user, text, createdAt }],
+  createdAt    : Date
+}
+\end{lstlisting}
+
+Deux index MongoDB sont définis~: un \textbf{index géospatial} \texttt{2dsphere} sur
+\texttt{coordinates} (requêtes de proximité \texttt{\$centerSphere}) et un \textbf{index texte}
+sur \texttt{location}, \texttt{description} et \texttt{tags} (recherche full-text
+\texttt{\$text}).
+
+\subsection{Modèle \texttt{Group}}
+
+\begin{lstlisting}[language=JavaScript, caption=Schéma Group.js]
+{
+  name       : String (required),
+  description: String,
+  creator    : ObjectId -> User,
+  members    : [ObjectId -> User],
+  coverImage : String (URL),
+  photos     : [ObjectId -> Photo],
+  createdAt  : Date
+}
+\end{lstlisting}
+
+\subsection{Modèle \texttt{Notification}}
+
+\begin{lstlisting}[language=JavaScript, caption=Schéma Notification.js]
+{
+  recipient : ObjectId -> User,
+  sender    : ObjectId -> User,
+  type      : enum [new_photo, new_like, group_photo,
+                    new_comment, group_invite],
+  title     : String,
+  message   : String,
+  photo     : ObjectId -> Photo,
+  group     : ObjectId -> Group,
+  isRead    : Boolean (default false),
+  relatedId : String,
+  createdAt : Date
+}
+\end{lstlisting}
+
+Un hook \textbf{post-save} déclenche automatiquement l'envoi d'une notification push Firebase
+dès qu'une notification est persistée en base, si le destinataire possède un token FCM valide.
+
+\section{API REST -- Référentiel des endpoints}
+
+\begin{table}[H]
+\centering
+\caption{Endpoints de l'API TravelShare}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{llXc}
+\toprule
+\rowcolor{primary!20}
+\textbf{Méthode} & \textbf{Route} & \textbf{Description} & \textbf{Auth} \\
+\midrule
+\multicolumn{4}{l}{\small\textit{\textbf{Authentification}}} \\
+POST   & \texttt{/api/auth/register}         & Créer un compte                       & -- \\
+POST   & \texttt{/api/auth/login}             & Se connecter, obtenir un JWT          & -- \\
+GET    & \texttt{/api/auth/me}                & Profil de l'utilisateur connecté      & JWT \\
+PUT    & \texttt{/api/auth/fcm-token}         & Enregistrer le token FCM              & JWT \\
+\midrule
+\multicolumn{4}{l}{\small\textit{\textbf{Photos}}} \\
+GET    & \texttt{/api/photos}                 & Fil public (filtres, pagination)      & Opt. \\
+GET    & \texttt{/api/photos/random}          & Flux aléatoire (10 photos)            & -- \\
+GET    & \texttt{/api/photos/me}              & Mes photos publiées                   & JWT \\
+POST   & \texttt{/api/photos/upload}          & Upload image vers Cloudinary          & JWT \\
+GET    & \texttt{/api/photos/:id}             & Détail d'une photo                    & Opt. \\
+POST   & \texttt{/api/photos}                 & Publier une nouvelle photo            & JWT \\
+DELETE & \texttt{/api/photos/:id}             & Supprimer sa photo                    & JWT \\
+POST   & \texttt{/api/photos/:id/toggle-like} & Liker / unliker                       & JWT \\
+POST   & \texttt{/api/photos/:id/report}      & Signaler un contenu                   & JWT \\
+GET    & \texttt{/api/photos/:id/comments}    & Lister les commentaires               & Opt. \\
+POST   & \texttt{/api/photos/:id/comments}    & Ajouter un commentaire                & JWT \\
+DELETE & \texttt{/api/photos/:id/comments/:c} & Supprimer son commentaire             & JWT \\
+\midrule
+\multicolumn{4}{l}{\small\textit{\textbf{Groupes}}} \\
+GET    & \texttt{/api/groups}                    & Mes groupes                        & JWT \\
+POST   & \texttt{/api/groups}                    & Créer un groupe                    & JWT \\
+GET    & \texttt{/api/groups/discover}           & Découvrir tous les groupes         & JWT \\
+PUT    & \texttt{/api/groups/:id/join}           & Rejoindre un groupe                & JWT \\
+PUT    & \texttt{/api/groups/:id/leave}          & Quitter un groupe                  & JWT \\
+GET    & \texttt{/api/groups/:id/photos}         & Photos partagées dans un groupe    & JWT \\
+POST   & \texttt{/api/groups/:id/photos}         & Ajouter une photo au groupe        & JWT \\
+DELETE & \texttt{/api/groups/:id/photos/:pid}    & Retirer une photo du groupe        & JWT \\
+\midrule
+\multicolumn{4}{l}{\small\textit{\textbf{Notifications}}} \\
+GET    & \texttt{/api/notifications}              & Historique des notifications      & JWT \\
+GET    & \texttt{/api/notifications/unread-count} & Nombre de non-lues                & JWT \\
+PUT    & \texttt{/api/notifications/:id/read}     & Marquer une notification comme lue & JWT \\
+PUT    & \texttt{/api/notifications/read-all}     & Tout marquer comme lu             & JWT \\
+\bottomrule
+\multicolumn{4}{l}{\footnotesize JWT~= token Bearer obligatoire \quad Opt.~= token optionnel (enrichit la réponse si présent)}
+\end{tabularx}
+\end{table}
+
+\section{Middleware d'authentification}
+
+Deux middlewares sont définis dans \texttt{authMiddleware.js}~:
+
+\begin{itemize}
+  \item \textbf{\texttt{protect}} : vérifie et décode le token JWT depuis l'en-tête
+        \texttt{Authorization: Bearer <token>}. En cas d'échec (token absent, expiré ou
+        invalide), renvoie \texttt{401 Unauthorized}. Si valide, attache l'objet utilisateur
+        complet (sans \texttt{password}) à \texttt{req.user} et appelle \texttt{next()}.
+  \item \textbf{\texttt{optionalAuth}} : même logique, mais en cas d'absence ou d'invalidité
+        du token positionne \texttt{req.user = null} et continue. Utilisé pour les routes
+        accessibles en mode anonyme (liste des photos, détail d'une photo, commentaires).
+\end{itemize}
+
+\section{Intégrations externes}
+
+\subsection{Cloudinary -- Hébergement des images}
+
+La configuration Cloudinary est centralisée dans \texttt{config/cloudinary.js}.
+L'upload est géré via \textbf{Multer} couplé à \texttt{multer-storage-cloudinary}~: les
+fichiers multipart envoyés par le client Android sont directement streamés vers le bucket
+\texttt{travelshare} sur Cloudinary (formats acceptés~: \texttt{jpg}, \texttt{jpeg},
+\texttt{png}, \texttt{webp}). L'URL publique retournée est stockée dans le champ
+\texttt{imageUrl} du document \texttt{Photo} en base.
+
+\subsection{Firebase Cloud Messaging -- Notifications push}
+
+L'envoi de notifications push n'utilise pas le SDK Firebase Admin (non adapté à cet
+environnement), mais appelle directement l'\textbf{API HTTP FCM v1} via le module natif
+\texttt{https}. Le mécanisme comprend trois étapes~:
+
+\begin{enumerate}
+  \item Génération d'un \textbf{JWT service-account} signé avec la clé privée du compte de
+        service Firebase (variable \texttt{FIREBASE\_SERVICE\_ACCOUNT} dans \texttt{.env}).
+  \item Échange de ce JWT contre un \textbf{OAuth2 access token} via
+        \texttt{oauth2.googleapis.com/token} (mis en cache en mémoire, renouvellement
+        automatique 60~secondes avant expiration).
+  \item Envoi \texttt{POST} à l'endpoint
+        \texttt{fcm.googleapis.com/v1/projects/\{project\_id\}/messages:send} avec le
+        token FCM du destinataire, le titre, le corps et les données complémentaires.
+\end{enumerate}
+
+Ce flux est déclenché automatiquement par le hook \texttt{post-save} du modèle
+\texttt{Notification}~: tout événement persisté en base (nouveau like, commentaire, etc.)
+génère immédiatement une notification push vers l'appareil du destinataire.
+
+\section{Sécurité et bonnes pratiques}
+
+\begin{itemize}
+  \item \textbf{Mots de passe}~: hachés avec bcryptjs, jamais renvoyés dans les réponses
+        (\texttt{select: false}).
+  \item \textbf{JWT}~: secret externalisé en variable d'environnement
+        (\texttt{JWT\_SECRET}), durée de vie paramétrable (\texttt{JWT\_EXPIRES\_IN}).
+  \item \textbf{Autorisation sur ressources}~: vérification de propriété avant toute
+        suppression (photo, commentaire) ou action réservée au créateur du groupe.
+  \item \textbf{Logger de requêtes}~: toutes les requêtes entrantes sont journalisées
+        (méthode, URL, IP, durée, body avec masquage du champ \texttt{password}).
+  \item \textbf{Secrets}~: externalisés dans \texttt{.env} (non versionné) -- URI MongoDB,
+        JWT secret, clés Cloudinary, compte de service Firebase.
+\end{itemize}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\chapter{Fonctionnalités réalisées -- TravelShare}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\section{Authentification}
+
+\subsection{Connexion et inscription}
+
+Le module d'authentification est implémenté dans \texttt{AuthDialog}, une boîte de dialogue
+modale à deux onglets (Connexion / Inscription).
+
+\begin{itemize}
+  \item \textbf{Connexion}~: envoi de l'e-mail et du mot de passe vers \texttt{POST /api/auth/login}.
+        En cas de succès, le token JWT et les informations utilisateur (nom complet,
+        pseudo, identifiant MongoDB) sont persistés localement via \texttt{TokenManager}
+        (SharedPreferences chiffré).
+  \item \textbf{Inscription}~: collecte du nom complet, du pseudo, de l'e-mail et du mot de
+        passe, validation côté client (champs non vides, longueur minimale du mot de passe),
+        puis appel à \texttt{POST /api/auth/register}.
+  \item L'interface désactive les boutons pendant l'appel réseau pour prévenir les
+        soumissions multiples.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[draw=medgray, dashed, fill=lightgray, minimum width=5cm, minimum height=3cm,
+          font=\small\itshape\color{darkgray}, align=center, rounded corners=4pt]
+          {Capture d'écran~:\\[0.3cm]\textbf{Dialogue d'authentification}\\(onglets Connexion / Inscription)};
+  \end{tikzpicture}
+  \caption{Dialogue d'authentification -- onglets Connexion et Inscription}
+  \label{fig:auth}
+\end{figure}
+
+\subsection{Gestion de session}
+
+La classe \texttt{TokenManager} centralise la persistance de session~:
+\begin{itemize}
+  \item Sauvegarde du token JWT, du nom complet, du pseudo, de l'identifiant et de la date
+        de création du compte.
+  \item Vérification de l'état de connexion (\texttt{isLoggedIn()}) utilisée dans
+        l'ensemble de l'application pour adapter dynamiquement l'interface.
+  \item Invalidation complète à la déconnexion (\texttt{clear()}).
+\end{itemize}
+
+L'état de connexion est exposé via un \texttt{LiveData<Boolean>} dans \texttt{MainViewModel},
+ce qui permet à toutes les vues de s'adapter automatiquement (affichage du bouton de
+connexion, visibilité des FAB, etc.).
+
+\section{Écran d'accueil -- Fil de photos}
+
+\texttt{HomeFragment} est l'écran central de l'application. Il intègre les éléments suivants~:
+
+\subsection{Chargement et affichage des photos}
+
+Les photos publiques sont chargées depuis \texttt{GET /api/photos} (page~1, limite~100) par
+\texttt{PhotoViewModel}. La liste est stockée dans un \texttt{MutableLiveData<List<Photo>>}
+et filtrée localement à chaque changement de critère, sans nouvel appel réseau.
+
+Trois modes d'affichage sont disponibles, commutables à la volée~:
+
+\begin{itemize}
+  \item \textbf{Vue grille}~: \texttt{GridLayoutManager} 2 colonnes, bannière anonyme
+        occupant toute la largeur (span~2).
+  \item \textbf{Vue liste}~: \texttt{LinearLayoutManager}, cards avec plus d'informations.
+  \item \textbf{Vue carte}~: \texttt{GoogleMap} avec marqueurs positionnés sur les
+        coordonnées GPS de chaque photo~; un clic sur le marqueur ouvre un
+        \texttt{BottomSheet} de prévisualisation.
+\end{itemize}
+
+Un \texttt{SwipeRefreshLayout} permet le rechargement manuel du fil.
+
+\begin{figure}[H]
+  \centering
+  \begin{subcaptionbox}{Vue grille\label{fig:home_grid}}[0.32\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=3.8cm, minimum height=3cm,
+            font=\tiny\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Capture d'écran\\vue grille};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \hfill
+  \begin{subcaptionbox}{Vue liste\label{fig:home_list}}[0.32\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=3.8cm, minimum height=3cm,
+            font=\tiny\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Capture d'écran\\vue liste};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \hfill
+  \begin{subcaptionbox}{Vue carte\label{fig:home_map}}[0.32\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=3.8cm, minimum height=3cm,
+            font=\tiny\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Capture d'écran\\vue carte};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \caption{Les trois modes de visualisation des photos}
+  \label{fig:home_views}
+\end{figure}
+
+\subsection{Recherche textuelle et vocale}
+
+\begin{itemize}
+  \item \textbf{Recherche par saisie}~: un champ \texttt{EditText} déclenche un filtre
+        local en temps réel (via \texttt{TextWatcher}) sur le nom du lieu, le pays, la
+        description, le nom de l'auteur et les tags.
+  \item \textbf{Recherche vocale}~: le bouton microphone (icône \texttt{ic\_mic}) lance
+        l'\texttt{Intent} \texttt{RecognizerIntent.ACTION\_RECOGNIZE\_SPEECH}. Le texte
+        reconnu est injecté directement dans le champ de recherche, déclenchant ainsi le
+        filtre. La permission \texttt{RECORD\_AUDIO} est demandée au runtime.
+\end{itemize}
+
+\subsection{Filtres avancés}
+
+Le bouton \emph{Filtres} ouvre \texttt{FiltersDialog}, une boîte de dialogue proposant~:
+
+\begin{table}[H]
+\centering
+\caption{Critères de filtrage disponibles}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\rowcolor{primary!15}
+\textbf{Critère} & \textbf{Implémentation} \\
+\midrule
+Type de lieu    & Spinner (Nature, Plage, Urbain, Montagne, Musée, \ldots) \\
+Auteur          & Spinner alimenté dynamiquement avec les auteurs des photos chargées \\
+Période         & Deux DatePickerDialog (date début / date fin), comparaison avec \texttt{createdAt} \\
+Rayon géo.      & Latitude, longitude (saisie ou sélection sur carte via \texttt{MapPickerActivity}) + rayon en km~; calcul de distance Haversine \\
+Photo similaire & Saisie d'un identifiant de photo (champ prévu, traitement partiel) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[draw=medgray, dashed, fill=lightgray, minimum width=7cm, minimum height=3cm,
+          font=\small\itshape\color{darkgray}, align=center, rounded corners=4pt]
+          {Capture d'écran~:\\[0.3cm]\textbf{Dialogue des filtres avancés}};
+  \end{tikzpicture}
+  \caption{Dialogue des filtres avancés}
+  \label{fig:filters}
+\end{figure}
+
+\section{Fiche détaillée d'une photo}
+
+\texttt{PhotoDetailActivity} affiche l'ensemble des informations associées à une photo~:
+
+\begin{itemize}
+  \item \textbf{Image} en haute résolution (chargée via Glide), cliquable pour accéder à
+        la vue plein écran avec zoom (\texttt{FullScreenImageActivity} + PhotoView).
+  \item \textbf{Métadonnées}~: auteur (avec avatar-initiale), date, type de lieu, localisation
+        (ville + pays).
+  \item \textbf{Description} et \textbf{how to get there} (comment s'y rendre).
+  \item \textbf{Compteur de likes} et bouton Like/Unlike (bascule en rouge/gris).
+  \item \textbf{Bouton Partager} : \texttt{Intent.ACTION\_SEND} vers les applications
+        tierces installées.
+  \item \textbf{Bouton Signaler} : dialogue de confirmation (signalement logique, pas encore
+        d'endpoint API dédié).
+  \item \textbf{Bouton Itinéraire} (\emph{Ouvrir dans Maps}) : construction d'un URI
+        \texttt{geo:} avec coordonnées et nom du lieu, lancement de Google Maps via Intent ;
+        repli sur le navigateur web si Maps n'est pas installé.
+  \item \textbf{Section commentaires} : chargement asynchrone, ajout et suppression par
+        l'auteur (mode connecté uniquement).
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \begin{subcaptionbox}{Fiche photo\label{fig:detail_main}}[0.48\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=5.5cm, minimum height=3cm,
+            font=\small\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Capture d'écran~:\\fiche détaillée de photo};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \hfill
+  \begin{subcaptionbox}{Plein écran + zoom\label{fig:detail_fullscreen}}[0.48\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=5.5cm, minimum height=3cm,
+            font=\small\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Capture d'écran~:\\affichage plein écran avec zoom};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \caption{Fiche détaillée d'une photo et vue plein écran}
+  \label{fig:photo_detail}
+\end{figure}
+
+\section{Publication de photos}
+
+\texttt{PublishBottomSheet} est accessible via le bouton flottant (FAB) visible uniquement
+en mode connecté. Le flux de publication se déroule en deux étapes~:
+
+\begin{enumerate}
+  \item \textbf{Upload de l'image}~: sélection depuis la galerie Android, copie dans le
+        cache de l'application, envoi multipart vers \texttt{POST /api/photos/upload}
+        (stockage Cloudinary). L'URL Cloudinary renvoyée est sauvegardée.
+  \item \textbf{Création de la fiche photo}~: appel \texttt{POST /api/photos} avec tous
+        les métadonnées saisies par l'utilisateur.
+\end{enumerate}
+
+\textbf{Champs du formulaire de publication~:}
+\begin{itemize}
+  \item Description libre.
+  \item Lieu (ville) et pays.
+  \item Type de lieu (spinner~: Nature, Urbain, Plage, Montagne, Musée, Magasin, Restaurant).
+  \item Tags (ajout par chips avec possibilité de suppression individuelle).
+  \item Coordonnées GPS (saisie manuelle ou sélection sur carte via \texttt{MapPickerActivity}).
+  \item \emph{Comment s'y rendre} (texte libre).
+  \item \textbf{Visibilité}~: Public (accessible à tous) ou Privé (réservé à des groupes
+        sélectionnés via des cases à cocher).
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \begin{subcaptionbox}{Formulaire de publication\label{fig:publish_form}}[0.48\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=5.5cm, minimum height=3cm,
+            font=\small\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Capture d'écran~:\\bottom sheet de publication};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \hfill
+  \begin{subcaptionbox}{Sélection de lieu sur carte\label{fig:map_picker}}[0.48\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=5.5cm, minimum height=3cm,
+            font=\small\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Capture d'écran~:\\MapPickerActivity};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \caption{Publication d'une photo et sélection du lieu}
+  \label{fig:publish}
+\end{figure}
+
+\section{Gestion des groupes}
+
+\texttt{GroupsBottomSheet} propose deux onglets~:
+
+\paragraph{Mes groupes}
+Affichage des groupes dont l'utilisateur est membre. Un appui long ouvre un menu contextuel
+permettant de \emph{quitter} le groupe ou, si l'utilisateur en est le créateur, de le
+\emph{supprimer}. La création d'un nouveau groupe (nom, description, image de couverture)
+est accessible depuis cet onglet.
+
+\paragraph{Découvrir}
+Liste des groupes existants auxquels l'utilisateur n'appartient pas encore, avec un bouton
+\emph{Rejoindre}.
+
+Un clic sur un groupe ouvre \texttt{GroupPhotosActivity}, qui affiche les photos partagées
+au sein de ce groupe.
+
+\begin{figure}[H]
+  \centering
+  \begin{subcaptionbox}{Mes groupes\label{fig:groups_my}}[0.32\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=3.8cm, minimum height=3cm,
+            font=\tiny\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Mes groupes};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \hfill
+  \begin{subcaptionbox}{Découvrir des groupes\label{fig:groups_discover}}[0.32\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=3.8cm, minimum height=3cm,
+            font=\tiny\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Découvrir des groupes};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \hfill
+  \begin{subcaptionbox}{Photos d'un groupe\label{fig:group_photos}}[0.32\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=3.8cm, minimum height=3cm,
+            font=\tiny\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Photos du groupe};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \caption{Écrans de gestion des groupes}
+  \label{fig:groups}
+\end{figure}
+
+\section{Notifications}
+
+\subsection{Notifications push (Firebase Cloud Messaging)}
+
+Le service \texttt{MyFirebaseMessagingService} étend \texttt{FirebaseMessagingService}~:
+\begin{itemize}
+  \item À chaque renouvellement du token FCM, ce dernier est envoyé au backend via
+        \texttt{PUT /api/auth/fcm-token} (si l'utilisateur est connecté).
+  \item À la réception d'un message push, une notification système est créée avec
+        \texttt{NotificationCompat.Builder} (canal haute priorité, redirection vers
+        \texttt{MainActivity}).
+\end{itemize}
+
+\subsection{Centre de notifications in-app}
+
+\texttt{NotificationsBottomSheet} affiche l'historique des notifications en base~:
+\begin{itemize}
+  \item Chargement depuis \texttt{GET /api/notifications} et \texttt{GET /api/notifications/unread-count}.
+  \item Un badge numérique sur l'icône de la barre de navigation indique le nombre
+        de notifications non lues (observable via \texttt{MainViewModel}).
+  \item Un clic sur une notification la marque comme lue (\texttt{PATCH /api/notifications/\{id\}/read})
+        et redirige vers la ressource concernée (photo ou groupe).
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[draw=medgray, dashed, fill=lightgray, minimum width=6cm, minimum height=3cm,
+          font=\small\itshape\color{darkgray}, align=center, rounded corners=4pt]
+          {Capture d'écran~:\\[0.3cm]\textbf{Centre de notifications}\\(badge + liste)};
+  \end{tikzpicture}
+  \caption{Centre de notifications in-app avec badge}
+  \label{fig:notifications}
+\end{figure}
+
+\section{Profil utilisateur}
+
+\texttt{ProfileFragment} s'adapte à l'état de connexion~:
+\begin{itemize}
+  \item \textbf{Non connecté}~: message d'invitation avec bouton de connexion.
+  \item \textbf{Connecté}~: appel à \texttt{GET /api/auth/me} pour obtenir les données
+        fraîches depuis le serveur (nom complet, pseudo, date de création du compte).
+        Affichage de l'avatar-initiale et de l'année d'inscription.
+        Bouton de déconnexion.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \begin{subcaptionbox}{Non connecté\label{fig:profile_out}}[0.48\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=5.5cm, minimum height=3cm,
+            font=\small\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Capture d'écran~:\\profil non connecté};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \hfill
+  \begin{subcaptionbox}{Connecté\label{fig:profile_in}}[0.48\textwidth]
+    \begin{tikzpicture}
+      \node[draw=medgray, dashed, fill=lightgray, minimum width=5.5cm, minimum height=3cm,
+            font=\small\itshape\color{darkgray}, align=center, rounded corners=4pt]
+            {Capture d'écran~:\\profil utilisateur connecté};
+    \end{tikzpicture}
+  \end{subcaptionbox}
+  \caption{Fragment de profil utilisateur}
+  \label{fig:profile}
+\end{figure}
+
+\section{Modèle de données}
+
+Le modèle \texttt{Photo} est le cœur applicatif. Il expose~:
+
+\begin{lstlisting}[language=Java, caption=Extrait du modèle Photo.java]
+public class Photo {
+    @SerializedName("_id")   private String mongoId;
+    private String imageUrl, location, country, locationType;
+    private double latitude, longitude;
+    private String description, howToGetThere;
+    @SerializedName("createdAt") private String date;
+    @SerializedName("likes")     private List<String> likesArray;
+    private boolean likedByMe, isPublic;
+    private List<String> tags;
+    private Author author;   // sous-objet { _id, fullName, username, avatar }
+}
+\end{lstlisting}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\chapter{Tableau de bord des fonctionnalités}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Le tableau ci-dessous synthétise l'état d'avancement de chaque fonctionnalité spécifiée.
+
+\begin{table}[H]
+\centering
+\caption{État d'avancement des fonctionnalités TravelShare}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{lXc}
+\toprule
+\rowcolor{primary!20}
+\textbf{Catégorie} & \textbf{Fonctionnalité} & \textbf{État} \\
+\midrule
+\multirow{4}{*}{\textbf{Authentification}}
+  & Inscription (nom, pseudo, e-mail, mot de passe) & \cmark \\
+  & Connexion par e-mail / mot de passe              & \cmark \\
+  & Persistance de session (JWT + SharedPreferences) & \cmark \\
+  & Déconnexion                                      & \cmark \\
+\midrule
+\multirow{5}{*}{\textbf{Parcours photos}}
+  & Chargement du fil public (API REST)              & \cmark \\
+  & Vue grille                                       & \cmark \\
+  & Vue liste                                        & \cmark \\
+  & Vue carte (Google Maps + marqueurs)              & \cmark \\
+  & Pull-to-refresh                                  & \cmark \\
+\midrule
+\multirow{6}{*}{\textbf{Recherche \& filtres}}
+  & Recherche textuelle (temps réel)                 & \cmark \\
+  & Recherche vocale (RecognizerIntent)              & \cmark \\
+  & Filtre par type de lieu                          & \cmark \\
+  & Filtre par auteur                                & \cmark \\
+  & Filtre par période (date début / fin)            & \cmark \\
+  & Filtre par rayon géographique (Haversine)        & \cmark \\
+  & Filtre par similarité (photos semblables)        & \pmark \\
+\midrule
+\multirow{6}{*}{\textbf{Fiche photo}}
+  & Affichage image + métadonnées complètes          & \cmark \\
+  & Vue plein écran avec zoom (PhotoView)            & \cmark \\
+  & Like / Unlike                                    & \cmark \\
+  & Commentaires (lecture, ajout, suppression)       & \cmark \\
+  & Partage via Intent Android                       & \cmark \\
+  & Signalement (dialogue UI)                        & \pmark \\
+  & Itinéraire vers le lieu (Intent Google Maps)     & \cmark \\
+\midrule
+\multirow{5}{*}{\textbf{Publication}}
+  & Sélection photo depuis la galerie                & \cmark \\
+  & Upload vers Cloudinary (multipart)               & \cmark \\
+  & Formulaire complet (lieu, tags, coordonnées…)    & \cmark \\
+  & Sélection du lieu sur carte (MapPickerActivity)  & \cmark \\
+  & Visibilité public / groupes                      & \cmark \\
+  & Suppression de sa propre photo                   & \cmark \\
+  & Annotations assistées par IA                     & \xmark \\
+\midrule
+\multirow{5}{*}{\textbf{Groupes}}
+  & Création d'un groupe                             & \cmark \\
+  & Rejoindre / quitter un groupe                    & \cmark \\
+  & Supprimer un groupe (créateur)                   & \cmark \\
+  & Découverte des groupes publics                   & \cmark \\
+  & Photos partagées dans un groupe                  & \cmark \\
+\midrule
+\multirow{4}{*}{\textbf{Notifications}}
+  & Notifications push FCM                           & \cmark \\
+  & Centre de notifications in-app                   & \cmark \\
+  & Badge sur l'onglet de navigation                 & \cmark \\
+  & Configuration des abonnements (thème/auteur)     & \xmark \\
+\midrule
+\multirow{3}{*}{\textbf{Profil}}
+  & Affichage des informations utilisateur           & \cmark \\
+  & Galerie des photos publiées par l'utilisateur    & \xmark \\
+  & Modification du profil                           & \xmark \\
+\bottomrule
+\multicolumn{3}{l}{\footnotesize \cmark~= Réalisé \quad \pmark~= Partiellement réalisé \quad \xmark~= Non encore réalisé}
+\end{tabularx}
+\end{table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\chapter{Points techniques remarquables}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\section{Moteur de filtrage local (client-side)}
+
+Pour éviter des allers-retours réseau à chaque frappe, tous les filtres sont appliqués
+localement sur la liste complète des photos déjà chargée. La classe \texttt{FilterCriteria}
+encapsule l'ensemble des critères actifs. La méthode \texttt{applyFilters()} du
+\texttt{PhotoViewModel} itère sur cette liste et applique en cascade les critères de type,
+d'auteur, de période (comparaison \texttt{Date}), de rayon (formule Haversine) et de texte
+(correspondance dans lieu, pays, description, auteur, tags).
+
+\section{Calcul de distance Haversine}
+
+La formule de Haversine est utilisée pour calculer la distance en kilomètres entre deux
+points GPS, ce qui permet le filtre \emph{autour d'un lieu} sans dépendance à un service
+tiers~:
+
+\begin{lstlisting}[language=Java, caption=Calcul de distance Haversine (PhotoViewModel)]
+private double calculateDistance(double lat1, double lng1,
+                                 double lat2, double lng2) {
+    double R = 6371; // rayon moyen de la Terre en km
+    double dLat = Math.toRadians(lat2 - lat1);
+    double dLng = Math.toRadians(lng2 - lng1);
+    double a = Math.sin(dLat/2)*Math.sin(dLat/2)
+             + Math.cos(Math.toRadians(lat1))
+             * Math.cos(Math.toRadians(lat2))
+             * Math.sin(dLng/2)*Math.sin(dLng/2);
+    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
+\end{lstlisting}
+
+\section{Configuration dynamique de l'URL du serveur}
+
+L'écran \texttt{IpConfigActivity} permet de modifier à la volée l'adresse IP du backend
+REST. Cette fonctionnalité est particulièrement utile lors des phases de test en réseau
+local (e.g.\ machine virtuelle ou appareil physique sur le même sous-réseau Wi-Fi). La
+nouvelle URL est passée à \texttt{RetrofitClient.setBaseUrl()}, ce qui force la
+réinstanciation du client Retrofit.
+
+\section{Adaptateur multi-vues avec bannière anonyme}
+
+\texttt{PhotoAdapter} gère deux types d'items (\texttt{TYPE\_BANNER} et \texttt{TYPE\_PHOTO})
+et trois modes d'affichage (grille, liste, card). La bannière est injectée en première
+position pour inviter les utilisateurs non connectés à créer un compte. La
+\texttt{GridLayoutManager.SpanSizeLookup} lui alloue automatiquement une largeur pleine
+(span~= 2).
+
+% ─────────────────────────────────────────────────────────────────────────────
+\chapter{Fonctionnalités restantes et plan de travail}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\section{Fonctionnalités prioritaires à compléter}
+
+\begin{warningbox}[Travaux restants -- priorité haute]
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Annotations assistées par IA}~: enrichissement automatique de la photo
+        lors de la publication (génération de tags, description courte) via un appel à
+        une API d'IA (Claude, Gemini ou Vision API). C'est une fonctionnalité explicitement
+        mentionnée dans la spécification.
+  \item \textbf{Galerie de profil}~: affichage des photos publiées par l'utilisateur
+        connecté dans son onglet Profil, avec possibilité de gestion (suppression).
+  \item \textbf{Configuration des abonnements de notification}~: permettre à l'utilisateur
+        de choisir les événements qui le notifient (publication d'un auteur donné, d'un
+        groupe, d'un lieu ou d'un thème).
+  \item \textbf{Signalement côté API}~: implémenter l'endpoint de signalement et connecter
+        le bouton Signaler de \texttt{PhotoDetailActivity} à cet endpoint.
+  \item \textbf{Filtre par similarité}~: la logique de récupération des photos similaires
+        à une photo de référence (champ \texttt{similarPhotoId} déjà présent dans
+        \texttt{FilterCriteria}) doit être branchée côté ViewModel et API.
+\end{enumerate}
+\end{warningbox}
+
+\section{Améliorations envisagées}
+
+\begin{itemize}
+  \item \textbf{Pagination incrémentale}~: remplacer le chargement en une seule page
+        (limite fixe à 100) par un défilement infini (\texttt{RecyclerView} +
+        \texttt{EndlessScrollListener}).
+  \item \textbf{Modification du profil}~: formulaire d'édition du nom, du pseudo et de
+        l'avatar.
+  \item \textbf{Mode hors-ligne partiel}~: mise en cache des dernières photos consultées
+        (Room ou fichiers JSON dans le stockage interne).
+  \item \textbf{Intégration TravelPath (Partie~3)}~: ajout du module passerelle permettant
+        de naviguer entre TravelShare et TravelPath dans une navigation unifiée.
+\end{itemize}
+
+\section{Estimation de l'avancement global}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \def\ptotal{15}
+  \def\pdone{11}
+  \def\ppartial{2}
+  \def\barW{12}
+  \fill[lightgray, rounded corners=4pt] (0,0) rectangle (\barW, 0.8);
+  \fill[success!70, rounded corners=4pt] (0,0) rectangle (\barW*\pdone/\ptotal, 0.8);
+  \fill[warning!80] (\barW*\pdone/\ptotal, 0) rectangle (\barW*(\pdone+\ppartial)/\ptotal, 0.8);
+  \draw[medgray, rounded corners=4pt] (0,0) rectangle (\barW, 0.8);
+  \node[anchor=west, font=\small\bfseries] at (0.2, 0.4) {\textcolor{white}{Réalisé}};
+  \node[font=\small\bfseries] at (\barW*(\pdone+0.5*\ppartial)/\ptotal, 0.4) {\textcolor{white}{\pmark}};
+  \node[right, font=\small, color=darkgray] at (\barW + 0.2, 0.4)
+        {\textbf{\pdone/\ptotal} fonctionnalités};
+\end{tikzpicture}
+\caption{Estimation visuelle de l'avancement (fonctionnalités principales)}
+\label{fig:progress}
+\end{figure}
+
+Sur les \textbf{15~fonctionnalités principales} identifiées dans la spécification~:
+\begin{itemize}
+  \item \textbf{11} sont entièrement réalisées (\cmark),
+  \item \textbf{2} sont partiellement réalisées (\pmark) : filtre par similarité et signalement,
+  \item \textbf{2} restent à réaliser (\xmark) : annotations IA et configuration des abonnements de notification.
+\end{itemize}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\chapter{Partie 2 : TravelPath}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\noindent\textbf{Dépôt GitLab :}
+\url{https://gitlab.etu.umontpellier.fr/e20190009868/travelsharepath}
+
+\section*{Stack technique}
+
+\begin{itemize}
+  \item \textbf{Frontend} : Android natif en Java
+  \item \textbf{Backend} : Node.js / Express / MongoDB
+  \item \textbf{Architecture} : MVVM (ViewModel + LiveData), Retrofit2, Navigation Component
+\end{itemize}
+
+\section{Authentification}
+
+\begin{itemize}
+  \item Inscription avec nom complet, email et mot de passe .
+  \item Connexion avec un token JWT persisté dans les SharedPreferences.
+  \item Déconnexion avec nettoyage complet de la session.
+  \item L'écran d'accueil adapte son interface selon l'état de connexion.
+\end{itemize}
+
+\section{Création d'un parcours}
+
+Le formulaire de création est organisé en deux niveaux.
+
+\textbf{Niveau parcours :}
+\begin{itemize}
+  \item Titre, description, ville.
+  \item Météo : Ensoleillé, Nuageux, Pluvieux, Tout temps.
+  \item Niveau d'effort : Facile, Moyen (Actif), Difficile.
+\end{itemize}
+
+\textbf{Niveau étape (ajout multiple) :}
+\begin{itemize}
+  \item Nom du lieu, géocodé automatiquement via Nominatim/OSM.
+  \item Type : Culture, Découverte, Restauration, Loisirs.
+  \item Durée (minutes), budget (€), description.
+  \item Photos multiples ajoutées depuis la galerie.
+  \item Réordonnancement par glisser-déposer.
+  \item Édition inline de chaque étape.
+  \item Compteurs en temps réel (durée totale, budget total, nombre d'étapes).
+\end{itemize}
+
+Un nouveau parcours est créé en statut \textit{Brouillon}.
+
+\section{Recherche de parcours}
+
+\begin{itemize}
+  \item Formulaire de filtres : ville, budget (slider), durée (slider), niveau d'effort,
+    types d'activités (multi-sélection).
+  \item Seuls les parcours \textit{publiés} apparaissent dans les résultats.
+  \item Filtrage côté serveur (ville, budget max, durée max, effort, types d'activités, météo).
+\end{itemize}
+
+\section{Interactions sociales}
+
+\textbf{Aimer un parcours} :
+\begin{itemize}
+  \item Bouton cœur avec compteur visible sur la fiche détail et dans les listes.
+  \item Toggle like/unlike confirmé par le serveur (pas d'optimistic update).
+  \item Le compteur se met à jour après confirmation serveur.
+\end{itemize}
+
+\textbf{Mettre en favori} :
+\begin{itemize}
+  \item Icône étoile sur la fiche détail.
+  \item Liste « Mes Favoris » dédiée avec les mêmes actions disponibles
+    (like, dé-favori, régénérer).
+  \item État favori synchronisé via \texttt{GET /auth/me}.
+\end{itemize}
+
+\section{Publication d'un parcours}
+
+\begin{itemize}
+  \item Bouton « Publier » visible uniquement sur les parcours en statut Brouillon.
+  \item Passage à statut \textit{Publié} côté serveur.
+  \item La liste « Mes parcours » se rafraîchit automatiquement après publication.
+\end{itemize}
+
+\section{Détail d'un parcours --- vue Itinéraire}
+
+\textbf{En-tête :}
+\begin{itemize}
+  \item Titre, budget total, durée totale, distance estimée, effort, météo, date.
+  \item Jusqu'à 4 photos d'aperçu (1\textsuperscript{re} photo de chaque étape).
+\end{itemize}
+
+\textbf{Par étape :}
+\begin{itemize}
+  \item Numéro et nom du lieu.
+  \item Badge de type coloré : Culture (indigo), Restauration (orange),
+    Loisirs (vert), Découverte (bleu).
+  \item Description, durée, budget.
+  \item Niveau d'effort coloré (vert / orange / rouge).
+  \item Galerie photos swipeable horizontalement.
+  \item Temps de marche vers l'étape suivante (si renseigné).
+\end{itemize}
+
+\section{Détail d'un parcours --- vue Carte}
+
+\begin{itemize}
+  \item Carte Leaflet.js intégrée dans une WebView, avec tuiles CartoDB.
+  \item Marqueurs numérotés (cercles rouges) pour chaque étape.
+  \item Géocodage à la volée des étapes sans coordonnées GPS.
+  \item Tracé d'abord en pointillés bleus, puis remplacé par l'itinéraire routier
+    réel calculé via OSRM.
+\end{itemize}
+
+\section{Autres fonctionnalités}
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}lX@{}}
+\toprule
+Mes Parcours & Liste avec actions : voir, éditer, publier, supprimer (avec confirmation). \\
+\midrule
+Édition / Régénération & Propriétaire $\rightarrow$ mise à jour ; autre utilisateur
+  $\rightarrow$ fork (copie). \\
+\midrule
+Export PDF & PDF multi-pages stylé : couverture, statistiques, description, une carte
+  par étape. \\
+\midrule
+Upload photos & Multipart vers le backend, stocké dans \texttt{/backend/uploads/}. \\
+\midrule
+Profil & Nom, email, statistiques (parcours créés / publiés), lien vers création. \\
+\bottomrule
+\end{tabularx}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\chapter{Passerelle Traveling}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\textit{À discuter et à compléter en binôme.}
+
+L'objectif de la passerelle est de faire communiquer les deux applications afin
+qu'elles forment un système cohérent. L'architecture envisagée s'appuie sur les
+mécanismes de communication inter-applications d'Android :
+
+\begin{itemize}
+  \item \textbf{Intents} : navigation entre écrans des deux applications.
+  \item \textbf{Content Providers} : exposition de données structurées
+    (photos d'un lieu, étapes d'un parcours).
+  \item \textbf{Services AIDL} : appels de méthodes distantes pour les calculs
+    (par exemple, génération d'un parcours à partir des photos populaires d'un lieu).
+\end{itemize}
+
+\subsection*{Scénarios envisagés}
+
+\begin{itemize}
+  \item Depuis une photo dans TravelShare $\rightarrow$ générer un parcours TravelPath
+    incluant ce lieu.
+  \item Depuis une étape d'un parcours TravelPath $\rightarrow$ consulter les photos
+    associées au lieu sur TravelShare.
+\end{itemize}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\chapter{Conclusion}
+% ─────────────────────────────────────────────────────────────────────────────
+
+À mi-parcours, la partie \textbf{TravelShare} du projet \emph{Traveling} présente une base
+fonctionnelle solide, aussi bien côté \textbf{frontend Android} que côté \textbf{backend REST}.
+L'architecture MVVM du client Android garantit une séparation claire des responsabilités et
+une bonne maintenabilité. Le serveur Node.js/Express expose l'intégralité des endpoints
+nécessaires, persistés en MongoDB Atlas, avec gestion des images (Cloudinary) et des
+notifications push (Firebase Cloud Messaging). Les fonctionnalités cœur de l'application
+-- parcours du fil de photos, recherche multicritère, publication, groupes et notifications
+push -- sont toutes opérationnelles de bout en bout.
+
+Les prochaines semaines seront consacrées principalement à l'intégration des annotations
+assistées par IA, à l'enrichissement du profil utilisateur, à la finalisation des
+fonctionnalités partielles (signalement, similarité) et à la préparation de la passerelle
+d'intégration avec TravelPath.
+
+\begin{successbox}[Points forts à mi-parcours]
+\begin{itemize}[noitemsep]
+  \item Architecture MVVM propre et extensible (frontend Android).
+  \item API REST complète~: 24 endpoints couvrant auth, photos, groupes et notifications.
+  \item Index géospatial MongoDB (\texttt{2dsphere}) pour les requêtes de proximité.
+  \item Recherche vocale native (RecognizerIntent) fonctionnelle.
+  \item Moteur de filtrage multi-critères entièrement côté client (réactif, sans latence réseau).
+  \item Upload d'images en multipart streamé directement vers Cloudinary.
+  \item Notifications push Firebase Cloud Messaging via API HTTP v1 (sans SDK tiers).
+  \item Vue carte Google Maps avec marqueurs cliquables.
+  \item Itinéraire depuis la fiche photo vers Google Maps.
+\end{itemize}
+\end{successbox}
+
+\end{document}

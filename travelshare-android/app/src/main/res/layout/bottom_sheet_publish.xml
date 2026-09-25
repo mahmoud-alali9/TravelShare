@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:background="#E0E0E0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Publier une photo"
+            android:textColor="#1A1A1A"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Zone Upload -->
+        <FrameLayout
+            android:id="@+id/btn_select_photo"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_spinner">
+
+            <LinearLayout
+                android:id="@+id/layout_upload_placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_add"
+                    android:contentDescription="Icône de sélection de photo"
+                    app:tint="#9E9E9E" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Cliquez pour sélectionner une photo"
+                    android:textColor="#9E9E9E"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img_preview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:contentDescription="Aperçu de la photo sélectionnée" />
+        </FrameLayout>
+
+        <!-- Description -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_description"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Description (obligatoire)">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textMultiLine"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Lieu et Pays -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_location"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Lieu (ex: Petra)">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_country"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:hint="Pays (ex: Jordanie)">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Coordonnées Géographiques -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Lat">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_latitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:textSize="12sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:hint="Lng">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_longitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:textSize="12sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/btn_pick_location"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_map"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="#7C3AED" />
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spinner_location_type"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_spinner" />
+
+        <!-- Tags -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Ajouter un tag">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_tag_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_add_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Ajouter"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#7C3AED" />
+        </LinearLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:chipSpacing="8dp" />
+
+        <!-- Comment s'y rendre -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="Comment s'y rendre">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_how_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textMultiLine"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Visibilité -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Visibilité"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rg_visibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_public"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Public" />
+
+            <RadioButton
+                android:id="@+id/rb_private"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Privé" />
+        </RadioGroup>
+
+        <!-- Liste Groupes (cachée par défaut) -->
+        <LinearLayout
+            android:id="@+id/layout_groups"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Partager avec vos groupes :"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/container_group_checkboxes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp" />
+        </LinearLayout>
+
+        <!-- Chargement publication -->
+        <LinearLayout
+            android:id="@+id/layout_publish_loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:indeterminate="true"/>
+
+            <TextView
+                android:id="@+id/tv_publish_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textSize="14sp"
+                android:textColor="#757575"/>
+
+        </LinearLayout>
+
+        <!-- Boutons Actions -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_cancel_publish"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Annuler"
+                android:textColor="#757575" />
+
+            <Button
+                android:id="@+id/btn_submit_publish"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:backgroundTint="#1A1A1A"
+                android:text="Publier"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

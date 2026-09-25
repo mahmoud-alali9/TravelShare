@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/img_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="Photo"
+                app:layout_collapseMode="parallax"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/gradient_bottom"
+                app:layout_collapseMode="parallax"/>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_arrow_back" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_detail_avatar"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:background="@drawable/circle_avatar"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_detail_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="#212121"/>
+
+                    <TextView
+                        android:id="@+id/tv_detail_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="#757575"/>
+
+                    <Button
+                        android:id="@+id/btn_subscribe_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="S'abonner"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:backgroundTint="#7C3AED"
+                        android:textColor="#FFFFFF"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_detail_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textSize="12sp"
+                    android:textColor="#1565C0"
+                    android:background="@drawable/badge_type"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="14dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_location"
+                    app:tint="#E53935" />
+
+                <TextView
+                    android:id="@+id/tv_detail_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:textSize="14sp"
+                    android:textColor="#E53935"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_detail_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textSize="14sp"
+                android:textColor="#424242"
+                android:lineSpacingMultiplier="1.4"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_detail_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#E0E0E0"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageButton
+                    android:id="@+id/btn_detail_like"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/ic_favorite_border"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Aimer"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="12dp"
+                    android:textSize="14sp"
+                    android:textColor="#757575"/>
+
+                <ImageButton
+                    android:id="@+id/btn_detail_share"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/ic_share"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Partager"
+                    app:tint="#757575" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/btn_detail_report"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/ic_flag"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Signaler"
+                    app:tint="#BDBDBD"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#E0E0E0"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comment s'y rendre"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="#212121"/>
+
+            <TextView
+                android:id="@+id/tv_detail_how_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="13sp"
+                android:textColor="#616161"
+                android:lineSpacingMultiplier="1.4"/>
+
+            <Button
+                android:id="@+id/btn_open_maps"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:text="Ouvrir l'itinéraire dans Maps"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@android:color/white"/>
+
+            <!-- ── SECTION COMMENTAIRES ─────────────────────── -->
+            <TextView
+                android:id="@+id/tv_detail_comments_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Commentaires"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="#212121"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_detail_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false"/>
+
+            <LinearLayout
+                android:id="@+id/layout_detail_add_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="12dp"
+                android:padding="4dp"
+                android:background="@drawable/bg_search_bar">
+
+                <EditText
+                    android:id="@+id/et_detail_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Ajouter un commentaire..."
+                    android:textSize="14sp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"/>
+
+                <ImageButton
+                    android:id="@+id/btn_detail_send_comment"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_send"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="@color/colorPrimary"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_detail_login_to_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Connectez-vous pour commenter"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="italic"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

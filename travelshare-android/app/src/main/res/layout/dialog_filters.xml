@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- ── En-tête ────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Filtres avancés"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A2E" />
+
+            <ImageButton
+                android:id="@+id/btn_close_filters"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_close"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Fermer"
+                app:tint="#9E9E9E" />
+
+        </LinearLayout>
+
+        <!-- ── Période ───────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_calendar"
+                app:tint="#6C63FF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Période"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A2E" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+
+            <!-- Date début -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_start_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:hint="Début"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_calendar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:textSize="13sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Date fin -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_end_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Fin"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_calendar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_end_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:textSize="13sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- ── Auteur ─────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_person"
+                app:tint="#6C63FF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Auteur"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A2E"/>
+
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spinner_author"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_spinner"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- ── Autour d'un lieu ───────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_location"
+                app:tint="#6C63FF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Autour d'un lieu"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A2E"/>
+
+        </LinearLayout>
+
+        <!-- Bouton Map Picker -->
+        <Button
+            android:id="@+id/btn_pick_on_map"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Choisir sur la carte"
+            android:textAllCaps="false"
+            android:layout_marginBottom="8dp"
+            app:icon="@drawable/ic_location" />
+
+        <!-- Affichage des coordonnées sélectionnées (optionnel mais recommandé) -->
+        <TextView
+            android:id="@+id/tv_selected_coords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aucun lieu sélectionné"
+            android:textSize="12sp"
+            android:textColor="#757575"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_horizontal"/>
+
+        <!-- Latitude / Longitude cachées ou en lecture seule pour garder la logique existante -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <EditText android:id="@+id/et_latitude" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+            <EditText android:id="@+id/et_longitude" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+        </LinearLayout>
+
+        <!-- Rayon -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:hint="Rayon (km)">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_radius"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textSize="13sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ── Photos similaires ─────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_grid"
+                app:tint="#6C63FF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Photos similaires"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A2E"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID de la photo de référence"
+            app:helperText="Affiche les photos proches visuellement de cet ID">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_similar_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ── Boutons ────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="32dp">
+
+            <Button
+                android:id="@+id/btn_reset"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Effacer"
+                android:textAllCaps="false"
+                android:textColor="#424242" />
+
+            <Button
+                android:id="@+id/btn_apply_filters"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1.2"
+                android:text="Appliquer"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#1A1A2E"
+                app:cornerRadius="8dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

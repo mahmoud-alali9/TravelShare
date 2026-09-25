@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+travelshare-android/cours/
+*.pdf

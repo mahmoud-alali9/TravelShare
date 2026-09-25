@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Photo -->
+        <ImageView
+            android:id="@+id/img_photo"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Photo de voyage"/>
+
+        <!-- Overlay sombre en bas -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@id/img_photo"
+            android:background="@drawable/gradient_bottom"/>
+
+        <!-- Bouton Supprimer (Caché par défaut) -->
+        <ImageButton
+            android:id="@+id/btn_delete_photo"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:background="@drawable/circle_avatar"
+            android:backgroundTint="#80000000"
+            android:src="@drawable/ic_delete"
+            app:tint="#FFFFFF"
+            android:padding="6dp"
+            android:visibility="gone" />
+
+        <!-- Container pour le texte en bas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/img_photo"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+
+            <!-- Lieu à gauche -->
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <!-- Likes à droite -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/img_like_icon"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_favorite"
+                    app:tint="@android:color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
